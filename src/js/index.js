@@ -1,9 +1,13 @@
 const TILE_SIZE = 85;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const pacman = new Pacman();
   const app = document.querySelector('#app');
-  pacman.mount(app);
+
+  const stage = new Stage(4, 9);
+  stage.mount(app);
+
+  const pacman = new Pacman();
+  pacman.mount(stage.element);
 
   document.addEventListener('keydown', (event) => {
     if(event.key === 'ArrowRight'){
