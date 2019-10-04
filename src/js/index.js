@@ -1,5 +1,5 @@
 const TILE_SIZE = 85;
-
+// this is the correct vers
 document.addEventListener('DOMContentLoaded', () => {
   const app = document.querySelector('#app');
 
