@@ -18,12 +18,19 @@ class Stage {
     }
 
     collisionDetection(x,y){
+        let result = null;
         for (const entity of this.entityArray) {
             if(x === entity.xpos && y === entity.ypos){
-                return entity.type;
-            }else{
-                return null;
+                result = entity;
             }
         }
+        return result;
     }
+
+    removeEntity(entityInfo) {
+        entityInfo.unMount(this.entityArray);
+        
+
+    }
+
 }

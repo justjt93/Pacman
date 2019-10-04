@@ -16,4 +16,15 @@ class Entity {
         parent.element.appendChild(this.element);
         parent.entityArray.push(this);
     }
+
+    unMount(entityArray) {
+        this.element.parentNode.removeChild(this.element);
+        console.log(entityArray);
+        
+        const indexArrRemove = entityArray.indexOf(this);
+
+
+        entityArray.splice(indexArrRemove,1);
+        console.log(entityArray);
+    }
 }
