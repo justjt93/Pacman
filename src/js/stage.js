@@ -2,6 +2,7 @@ class Stage {
     constructor(width, height){
         this.width = width;
         this.height = height;
+        this.entityArray = [];
     }
 
     render() {
@@ -15,4 +16,21 @@ class Stage {
         this.render();
         parent.appendChild(this.element);
     }
+
+    collisionDetection(x,y){
+        let result = null;
+        for (const entity of this.entityArray) {
+            if(x === entity.xpos && y === entity.ypos){
+                result = entity;
+            }
+        }
+        return result;
+    }
+
+    removeEntity(entityInfo) {
+        entityInfo.unMount(this.entityArray);
+        
+
+    }
+
 }
