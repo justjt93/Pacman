@@ -14,21 +14,27 @@ class Pacman {
     mount(parent) {
         this.render();
         parent.appendChild(this.element);
+        this.maxWidth = parseInt(parent.style.width, 10) / TILE_SIZE - 1;
+        this.maxHeight = parseInt(parent.style.height, 10) / TILE_SIZE - 1;
         this.update();
     }
 
     move(direction) {
         switch (direction) {
-            case 'right':  this.xpos += TILE_SIZE;
-            this.direction = 0;
+            case 'right':  
+                if (this.xpos < this.maxWidth) {this.xpos += 1;}
+                this.direction = 0;
                 break;
-            case 'left':  this.xpos -= TILE_SIZE;
+            case 'left':  
+            if (this.xpos > 0) {this.xpos -= 1;}
                 this.direction = 255;
                 break;
-            case 'up':  this.ypos -= TILE_SIZE;
+            case 'up':  
+                if (this.ypos > 0) {this.ypos -= 1;}
                 this.direction = 85;
                 break;
-            case 'down':  this.ypos += TILE_SIZE;
+            case 'down':
+                if (this.ypos < this.maxHeight) {this.ypos += 1;}
                 this.direction = 170;
                 break;
             // default:
@@ -43,8 +49,8 @@ class Pacman {
     }
 
     update() {
-        this.element.style.left = `${this.xpos}px`;
-        this.element.style.top = `${this.ypos}px`;
+        this.element.style.left = `${this.xpos * TILE_SIZE}px`;
+        this.element.style.top = `${this.ypos * TILE_SIZE}px`;
         this.element.style.backgroundPositionX = `${this.mouth}px`;
         this.element.style.backgroundPositionY = `${this.direction}px`;
     }
