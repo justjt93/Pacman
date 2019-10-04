@@ -1,9 +1,12 @@
 class Pacman {
-    constructor() {
+    constructor(stage) {
       this.xpos = 0;
       this.ypos = 0;
+      this.lastXpos = 0;
+      this.lastYpos = 0;
       this.mouth = 0;
       this.direction = 0;
+      this.stage = stage;
     }
 
     render() {
@@ -13,27 +16,40 @@ class Pacman {
 
     mount(parent) {
         this.render();
-        parent.appendChild(this.element);
+        parent.element.appendChild(this.element);
+        this.maxWidth = parent.width - 1;
+        this.maxHeight = parent.height - 1;
         this.update();
     }
 
+
     move(direction) {
+        this.lastXpos = this.xpos;
+        this.lastYpos = this.ypos;
         switch (direction) {
-            case 'right':  this.xpos += TILE_SIZE;
-            this.direction = 0;
+            case 'right':  
+                if (this.xpos < this.maxWidth) {this.xpos += 1;}
+                this.direction = 0;
                 break;
-            case 'left':  this.xpos -= TILE_SIZE;
+            case 'left':  
+            if (this.xpos > 0) {this.xpos -= 1;}
                 this.direction = 255;
                 break;
-            case 'up':  this.ypos -= TILE_SIZE;
+            case 'up':  
+                if (this.ypos > 0) {this.ypos -= 1;}
                 this.direction = 85;
                 break;
-            case 'down':  this.ypos += TILE_SIZE;
+            case 'down':
+                if (this.ypos < this.maxHeight) {this.ypos += 1;}
                 this.direction = 170;
                 break;
-            // default:
         }
         
+        if(this.stage.collisionDetection(this.xpos,this.ypos) === 'wall'){
+            this.xpos = this.lastXpos;
+            this.ypos = this.lastYpos;
+        }
+
         if(this.mouth === 0){
             this.mouth = 85;
         }else{
@@ -43,8 +59,8 @@ class Pacman {
     }
 
     update() {
-        this.element.style.left = `${this.xpos}px`;
-        this.element.style.top = `${this.ypos}px`;
+        this.element.style.left = `${this.xpos * TILE_SIZE}px`;
+        this.element.style.top = `${this.ypos * TILE_SIZE}px`;
         this.element.style.backgroundPositionX = `${this.mouth}px`;
         this.element.style.backgroundPositionY = `${this.direction}px`;
     }
