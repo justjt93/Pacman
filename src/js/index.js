@@ -9,11 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const pacman = new Pacman(stage);
   pacman.mount(stage);
 
-  const entity1 = new Entity(2,4,'wall');
+  const entity1 = new Entity(1,2,'apple');
   entity1.mount(stage);
 
-  const entity2 = new Entity(1,2,'bomb');
+  const entity2 = new Entity(2,4,'apple');
   entity2.mount(stage);
+
+  const entity3 = new Entity(3,2,'wall');
+  entity3.mount(stage);
+
 
   document.addEventListener('keydown', (event) => {
     if(event.key === 'ArrowRight'){
