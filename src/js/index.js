@@ -1,15 +1,13 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const pacman = document.querySelector('.pacboy-active-light');
+const TILE_SIZE = 85;
 
-  let pacMouth = 85;
-  document.addEventListener('click', () => {
-    if(pacMouth === 0){
-    pacMouth = 85;
-    }else{
-      pacMouth = 0;
+document.addEventListener('DOMContentLoaded', () => {
+  const pacman = new Pacman();
+  const app = document.querySelector('#app');
+  pacman.mount(app);
+
+  document.addEventListener('keydown', (event) => {
+    if(event.key === 'ArrowRight'){
+      pacman.moveRight();
     }
-    pacman.style.backgroundPositionX = `${pacMouth}px`;
   });
 });
-
-    // background-position-x: 85px;
